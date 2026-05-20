@@ -6,6 +6,8 @@ matching intent. Each subfolder contains a `SKILL.md`.
 | Skill                 | When the user wants to…                                                                                |
 | --------------------- | ------------------------------------------------------------------------------------------------------ |
 | `first-run`           | (no explicit ask — fire on the first turn of a fresh fork to install Node + deps and verify the build) |
+| `brainstorm`          | "I want to build something but…" — narrow a vague idea to a buildable scope                            |
+| `frontend-design`     | "make it look nice / design it / pick colors" — set a distinct visual direction per project            |
 | `shadcn-component`    | add any UI element (button, modal, form, table…)                                                       |
 | `charts`              | build a chart, graph, or dashboard visualization                                                       |
 | `decompose-component` | split a component file that grew over ~200 lines                                                       |

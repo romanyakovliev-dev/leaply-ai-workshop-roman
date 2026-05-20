@@ -195,6 +195,13 @@ color: "var(--chart-1)" // ✅ theme-aware
 color: "#ff6b6b" // ❌ breaks dark mode, drifts from palette
 ```
 
+The **values** of `--chart-1..5` are project-specific — the starter
+ships with a placeholder green-tinted palette that you should swap for
+something that fits this product. That swap is owned by the
+[`frontend-design`](../frontend-design/SKILL.md) skill, not by this
+one. The chart skill's job is just to consume whatever tokens are
+defined; the design skill decides what they are.
+
 If you need more than 5 distinct series, that's usually a sign the
 chart is over-loaded — propose a different visualization to the user.
 

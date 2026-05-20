@@ -353,6 +353,8 @@ intents in plain words, open the matching skill:
 | User says (paraphrased)                        | Skill                                         |
 | ---------------------------------------------- | --------------------------------------------- |
 | _first turn of a fresh fork (no explicit ask)_ | `.claude/skills/first-run/SKILL.md`           |
+| "I'm not sure what to build" / vague idea      | `.claude/skills/brainstorm/SKILL.md`          |
+| "make it look nice" / "design it" / "colors"   | `.claude/skills/frontend-design/SKILL.md`     |
 | "save my work" / "I want to keep this"         | `.claude/skills/git-commit/SKILL.md`          |
 | "put it on GitHub" / "publish"                 | `.claude/skills/github-publish/SKILL.md`      |
 | "put it online" / "make it a real website"     | `.claude/skills/vercel-deploy/SKILL.md`       |
