@@ -1,10 +1,15 @@
-import { Geist_Mono, Figtree } from "next/font/google"
+import { Geist_Mono, Lato } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
-const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" })
+// Lato is Slack's actual UI font — picked here to nail the imitation.
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-sans",
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -24,7 +29,7 @@ export default function RootLayout({
         "antialiased",
         fontMono.variable,
         "font-sans",
-        figtree.variable
+        lato.variable
       )}
     >
       <body>

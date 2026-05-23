@@ -2,7 +2,7 @@ import { env } from "@/lib/env"
 import { buildScriptedReply } from "@/lib/game/demo-script"
 import { callGeminiChat } from "@/lib/gemini"
 import { parseJsonObject } from "@/lib/json-extract"
-import { STAGES, buildPriorContext, type StageId } from "@/lib/personas"
+import { STAGES, buildSystemPrompt, type StageId } from "@/lib/personas"
 import {
   ChatTurnReplySchema,
   type ChatMessageT,
@@ -24,22 +24,28 @@ export async function runConversationTurn({
     return buildScriptedReply(stage, thread)
   }
 
-  const stageConfig = STAGES[stage]
-  const system =
-    stageConfig.systemPrompt + buildPriorContext(priorTranscripts ?? {})
+  const userMessagesSoFar = thread.filter((m) => m.role === "user").length
+  const turnsLeft = Math.max(0, STAGES[stage].budget - userMessagesSoFar)
+  const system = buildSystemPrompt(stage, turnsLeft, priorTranscripts ?? {})
 
   const raw = await callGeminiChat({
     system,
     messages: thread,
-    maxTokens: 1024,
+    maxTokens: 1500,
   })
 
   let json: unknown
   try {
     json = parseJsonObject(raw)
-  } catch {
-    console.error("[runConversationTurn] non-JSON reply:", raw.slice(0, 500))
-    throw new Error(`Модель повернула не-JSON. Початок: ${raw.slice(0, 120)}`)
+  } catch (err) {
+    const reason = err instanceof Error ? err.message : String(err)
+    console.error(
+      "[runConversationTurn] non-JSON reply, raw start:",
+      raw.slice(0, 500)
+    )
+    throw new Error(
+      `Модель повернула не-JSON. Початок: ${raw.slice(0, 120)} (${reason})`
+    )
   }
   const parsed = ChatTurnReplySchema.safeParse(json)
   if (!parsed.success) {

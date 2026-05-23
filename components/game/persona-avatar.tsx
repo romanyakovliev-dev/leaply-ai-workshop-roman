@@ -6,17 +6,40 @@ type Props = {
   stage: StageId
   size?: "sm" | "default" | "lg"
   muted?: boolean
+  // Slack uses rounded-md, not full circle.
+  square?: boolean
 }
 
-export function PersonaAvatar({ stage, size = "default", muted }: Props) {
+const SIZE_CLASS = {
+  sm: "size-5",
+  default: "size-9",
+  lg: "size-12",
+} as const
+
+export function PersonaAvatar({
+  stage,
+  size = "default",
+  muted,
+  square = true,
+}: Props) {
   const persona = STAGES[stage]
   return (
-    <Avatar size={size} className={cn(muted && "opacity-40 grayscale")}>
+    <Avatar
+      className={cn(
+        SIZE_CLASS[size],
+        square ? "rounded-md" : "",
+        "shrink-0",
+        muted && "opacity-40 grayscale"
+      )}
+    >
       <AvatarImage
-        src={getAvatarUrl(persona.avatarSeed)}
+        src={getAvatarUrl(persona.photoId)}
         alt={persona.displayName}
+        className={cn(square && "rounded-md")}
       />
-      <AvatarFallback>{persona.displayName.slice(0, 2)}</AvatarFallback>
+      <AvatarFallback className={cn(square && "rounded-md")}>
+        {persona.displayName.slice(0, 2)}
+      </AvatarFallback>
     </Avatar>
   )
 }

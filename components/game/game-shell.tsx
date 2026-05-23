@@ -28,12 +28,17 @@ export function GameShell() {
   const disabled = status !== "playing"
 
   return (
-    <div className="flex h-[100svh] w-full overflow-hidden bg-background">
-      <ChatSidebar currentStage={currentStage} reachedStages={reachedStages} />
+    <div className="flex h-[100svh] w-full overflow-hidden bg-white">
+      <ChatSidebar
+        currentStage={currentStage}
+        reachedStages={reachedStages}
+        messagesUsed={messagesUsed}
+      />
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <ChatHeader
           currentStage={currentStage}
           messagesUsed={messagesUsed[currentStage]}
+          reachedStagesCount={reachedStages.size}
         />
         <ChatThread
           threads={threads}
@@ -41,7 +46,11 @@ export function GameShell() {
           thinking={status === "thinking"}
           error={error}
         />
-        <ChatInput disabled={disabled} onSend={sendUserMessage} />
+        <ChatInput
+          disabled={disabled}
+          currentStage={currentStage}
+          onSend={sendUserMessage}
+        />
       </div>
     </div>
   )
