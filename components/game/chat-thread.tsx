@@ -23,7 +23,7 @@ export function ChatThread({ threads, currentStage, thinking, error }: Props) {
   }, [threads, thinking, currentStage])
 
   return (
-    <ScrollArea className="flex-1">
+    <ScrollArea className="min-h-0 flex-1">
       <div className="flex flex-col gap-1 py-3">
         {STAGE_ORDER.map((stage) => {
           const thread = threads[stage]

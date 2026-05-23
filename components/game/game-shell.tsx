@@ -30,7 +30,7 @@ export function GameShell() {
   return (
     <div className="flex h-[100svh] w-full overflow-hidden bg-background">
       <ChatSidebar currentStage={currentStage} reachedStages={reachedStages} />
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <ChatHeader
           currentStage={currentStage}
           messagesUsed={messagesUsed[currentStage]}
