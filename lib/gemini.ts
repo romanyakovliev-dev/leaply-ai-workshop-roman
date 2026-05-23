@@ -53,6 +53,10 @@ export async function callGeminiChat({
         responseMimeType: "application/json",
         responseSchema: RESPONSE_SCHEMA,
         temperature: 0.7,
+        // Disable internal "thinking" so all tokens go to the actual reply.
+        // Gemini 2.5 Flash otherwise burns 500-1000 thinking tokens before
+        // emitting the first character of output.
+        thinkingConfig: { thinkingBudget: 0 },
       },
     }),
   })
