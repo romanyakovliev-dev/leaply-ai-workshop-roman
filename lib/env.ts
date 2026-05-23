@@ -8,11 +8,10 @@ const EnvSchema = z.object({
     .enum(["development", "test", "production"])
     .default("development"),
 
-  // Example public var (safe to expose to the browser):
-  // NEXT_PUBLIC_APP_URL: z.string().url(),
-
-  // Example server-only secret (never NEXT_PUBLIC_):
-  // OPENAI_API_KEY: z.string().min(1),
+  GEMINI_API_KEY: z
+    .string()
+    .optional()
+    .transform((v) => (v && v.length > 0 ? v : undefined)),
 })
 
 export const env = EnvSchema.parse(process.env)
